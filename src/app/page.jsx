@@ -1,8 +1,6 @@
-import Image from "next/image";
-
 export default function Home() {
 	return (
-		<div>
+		<div className="pt-44">
 			<h1>Axoria Blog</h1>
 		</div>
 	);
