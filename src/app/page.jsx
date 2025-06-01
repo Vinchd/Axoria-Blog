@@ -1,23 +1,27 @@
 import Link from "next/link";
 import { connectToDB } from "@/lib/utils/db/connectToDB";
+import { getPosts } from "@/lib/serverMethods/blog/postMethods";
 
-const posts = [
-	{
-		author: "John Doe",
-		title: "5 CSS Tricks",
-	},
-	{
-		author: "Victor Wallas",
-		title: "How to code a navbar",
-	},
-	{
-		author: "Bruce Willis",
-		title: "How to setup Typescript",
-	},
-];
+// const posts = [
+// 	{
+// 		author: "John Doe",
+// 		title: "5 CSS Tricks",
+// 	},
+// 	{
+// 		author: "Victor Wallas",
+// 		title: "How to code a navbar",
+// 	},
+// 	{
+// 		author: "Bruce Willis",
+// 		title: "How to setup Typescript",
+// 	},
+// ];
 
 export default async function Home() {
 	await connectToDB();
+
+	const posts = await getPosts();
+	console.log(posts);
 
 	return (
 		<div className="u-padding-content-container u-main-container">
@@ -27,7 +31,7 @@ export default async function Home() {
 			<ul className="u-articles-grid">
 				{posts.map((post, id) => (
 					<li
-						key={id}
+						key={post.id}
 						className="shadow-md hover:shadow-xl border hover:border-zinc-300 border-transparent rounded-sm transition-all duration-200"
 					>
 						<div className="px-5 pt-5 pb-7">
@@ -43,14 +47,14 @@ export default async function Home() {
 									})}
 								</time>
 								<Link
-									href={`/categories/author/${post.author}`}
+									href={`/categories/author/johndoe`}
 									className="ml-auto text-gray-700 text-base truncate whitespace-nowrap hovertext-gray-600"
 								>
-									{post.author}
+									John Doe
 								</Link>
 							</div>
 							<Link
-								href={`/article/${post.title}`}
+								href={`/article/${post.slug}`}
 								className="inline-block mt-6 font-semibold text-zinc-800 hover:text-zinc-600 text-xl"
 							>
 								{post.title}
