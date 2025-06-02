@@ -10,7 +10,7 @@ export default function Navbar() {
 				<Link href="/categories" className="mx-2 mr-auto text-zinc-900">
 					Categories
 				</Link>
-				<Link href="dashboard/create" className="mx-2 text-zinc-900">
+				<Link href="/dashboard/create" className="mx-2 text-zinc-900">
 					Add an article
 				</Link>
 			</div>

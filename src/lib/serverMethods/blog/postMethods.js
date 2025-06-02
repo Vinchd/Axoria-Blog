@@ -13,11 +13,14 @@ export async function getPost(slug) {
 	}
 }
 
-export async function getPosts(params) {
+export async function getPosts() {
 	try {
 		await connectToDB();
 		const posts = await Post.find({});
 
 		return posts;
-	} catch (err) {}
+	} catch (err) {
+		console.error("Error fetching posts:", err);
+		throw new Error("Failed to fetch posts");
+	}
 }
