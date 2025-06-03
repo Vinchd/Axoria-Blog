@@ -6,9 +6,27 @@ export default function page() {
 	const [tags, setTags] = useState(["css", "javascript"]);
 	const tagInputRef = useRef(null);
 
-	const handleAddTag = () => {};
+	const handleAddTag = (e) => {
+		e.preventDefault();
+		const newTag = tagInputRef.current.value.trim().toLowerCase();
+		if (newTag !== "" && !tags.includes(newTag) && tags.length < 5) {
+			setTags((prevTags) => [...prevTags, newTag]);
+			tagInputRef.current.value = "";
+			tagInputRef.current.focus();
+		}
+	};
 
-	const handleRemoveTag = (tag) => {};
+	const handleRemoveTag = (tagToRemove) => {
+		setTags((prevTags) => prevTags.filter((tag) => tag !== tagToRemove));
+		tagInputRef.current.focus();
+	};
+
+	const handeEnterOnTagInput = (e) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			handleAddTag(e);
+		}
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -46,6 +64,7 @@ export default function page() {
 							id="tag"
 							placeholder="Add a tag"
 							ref={tagInputRef}
+							onKeyDown={handeEnterOnTagInput}
 							className="shadow p-3 border border-slate-200 rounded focus:outline-slate-400 text-gray-700"
 						/>
 						<button
