@@ -3,12 +3,13 @@ import { useState, useRef } from "react";
 import { addPost } from "@/lib/serverActions/blog/postServerActions";
 
 export default function page() {
-	const [tags, setTags] = useState(["css", "javascript"]);
+	const [tags, setTags] = useState([]);
 	const tagInputRef = useRef(null);
 
 	const handleAddTag = (e) => {
 		e.preventDefault();
 		const newTag = tagInputRef.current.value.trim().toLowerCase();
+
 		if (newTag !== "" && !tags.includes(newTag) && tags.length < 5) {
 			setTags((prevTags) => [...prevTags, newTag]);
 			tagInputRef.current.value = "";
@@ -31,6 +32,7 @@ export default function page() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.target);
+		formData.set("tags", JSON.stringify(tags));
 
 		for (const [key, value] of formData.entries()) {
 			console.log(key, value);

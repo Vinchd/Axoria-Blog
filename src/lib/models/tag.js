@@ -1,5 +1,4 @@
-import mongoose, { mongo } from "mongoose";
-import { unique } from "next/dist/build/utils";
+import mongoose from "mongoose";
 
 const tagSchema = new mongoose.Schema({
 	name: {
