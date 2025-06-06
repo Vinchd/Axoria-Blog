@@ -3,6 +3,11 @@ import slugify from "slugify";
 import { marked } from "marked";
 import { JSDOM } from "jsdom";
 import createDOMPurify from "dompurify";
+import Prism from "prismjs";
+import { markedHighlight } from "marked-highlight";
+import "prismjs/components/prism-markup";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-javascript";
 import { connectToDB } from "@/lib/utils/db/connectToDB";
 import { Post } from "@/lib/models/post";
 import { Tag } from "@/lib/models/tag";
@@ -34,6 +39,22 @@ export async function addPost(formData) {
 		);
 
 		// Markdown management
+		marked.use(
+			markedHighlight({
+				highlight: (code, language) => {
+					const validLanguage = Prism.languages[language]
+						? language
+						: "plaintext";
+
+					return Prism.highlight(
+						code,
+						Prism.languages[validLanguage],
+						validLanguage,
+					);
+				},
+			}),
+		);
+
 		let markdownHTMLResult = marked(markdownArticle);
 		markdownHTMLResult = DOMPurify.sanitize(markdownHTMLResult);
 

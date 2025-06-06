@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "prism-themes/themes/prism-vsc-dark-plus.css";
 import { getPost } from "@/lib/serverMethods/blog/postMethods";
 import "./article-styles.css";
 
